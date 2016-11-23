@@ -18,6 +18,20 @@
     <![endif]-->
   </head>
   <body>
+    
+    <div class="container">
+      <div class="row">
+        <div id="pastebinID"></div>
+        <div style="height:1px,background-color:#0000ff,display:block"></div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="row">
+        <div id="markdownContent"></div>
+      </div>
+    </div>
+    
     <script src="https://cdn.rawgit.com/showdownjs/showdown/1.5.0/dist/showdown.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -37,7 +51,9 @@
       $.get("http://pastebin.com/raw/"+pasteID, function(rawData) {
         convertedHTML = converter.makeHtml(rawData);
       });
+
+      document.getElementById("pastebinID").innerHTML = "http://pastebin.com/raw/"+pasteID;
+      document.getElementById("markdownContent").innerHTML = convertedHTML;
     </script>
-    
   </body>
 </html>
