@@ -34,7 +34,7 @@
       var pasteID = getURLParameter(id);
       var convertedHTML;
       
-      $.get("http://www.mypage.com", function(rawData) {
+      $.get("http://pastebin.com/raw/"+pasteID, function(rawData) {
         convertedHTML = converter.makeHtml(rawData);
       });
     </script>
