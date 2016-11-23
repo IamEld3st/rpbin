@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title id="t">rpbin</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -18,13 +18,6 @@
     <![endif]-->
   </head>
   <body>
-    
-    <div class="container">
-      <div class="row">
-        <div id="pastebinID"></div>
-        <div style="height:1px;background-color:#0000ff;display:block"></div>
-      </div>
-    </div>
     
     <div class="container">
       <div class="row">
@@ -41,19 +34,20 @@
     <script type="text/javascript">
     
       function getURLParameter(name) {
-        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+        console.log("Trying to get parameter "+name);
+        var parameterOutput = decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+        console.log(name+" = "+parameterOutput);
+        return parameterOutput;
       }
-      
-      var converter = new showdown.Converter();
-      var pasteID = getURLParameter(id);
-      var convertedHTML;
-      
-      $.get("http://pastebin.com/raw/"+pasteID, function(rawData) {
-        convertedHTML = converter.makeHtml(rawData);
-      });
 
-      document.getElementById("pastebinID").innerHTML = "http://pastebin.com/raw/"+pasteID;
-      document.getElementById("markdownContent").innerHTML = convertedHTML;
+      var converter = new showdown.Converter();
+      var pasteID = getURLParameter("id");
+      var convertedHTML;
+
+      $.get('http://cors-anywhere.herokuapp.com/http://pastebin.com/raw/'+pasteID, function (response) {
+          document.getElementById("markdownContent").innerHTML = converter.makeHtml(response);
+      });
+      document.getElementById('t').innerHTML = 'rpbin: '+pasteID;
     </script>
   </body>
 </html>
